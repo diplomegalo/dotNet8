@@ -1,6 +1,8 @@
-# Quoi de neuf avec .NET 8
+# Migration .NET 8
 
-Cette documentation participative regroupe les informations récolter au sujet de .NET 8.
+La fin du support de .NET 6 est prévue pour le [12 novembre 2024](https://dotnet.microsoft.com/en-us/platform/support/policy#dotnet-core). La migration vers la version .NET 8 doit dés lors être entreprise.
+
+Cette documentation participative regroupe les informations récolter au sujet de .NET 8 et des problématiques de migrations.
 
 - **[Performance](./performance/performance.md)** : la présentation des points d'améliorations des performances.
 
