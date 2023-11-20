@@ -30,9 +30,13 @@ On peut noter que seules les méthodes fréquemment utilisées et les plus lente
 
 La démo de la **Conf.NET 2023** faite par Stephen Toub : [Dynamic PGO viewed with DOTNET_JitDisasm{summary}](https://www.youtube.com/live/xEFO1sQ2bUc?si=OuZH2HnBmXQPaFJ-) permet de très bien comprendre le phénomène, car on y voit distinctement les étapes de compilation de même que le code assembleur généré par le compilateur dans lequel il est possible de s'apercevoir des optimisations.
 
-### Branch
+### Branching
 
-:construction: En cours de rédaction
+:construction: En cours de rédaction :construction:
+
+Les améliorations de performances liées au branching sont liées à l'optimisation des branchements conditionnels : loops, if/else, switch, etc. Les hardwares modernes ont été optimisés pour les branchements conditionnels, par exemple en lisant et décodant l'instruction suivante durant l'exécution de l'instruction courante. Cependant, ceci n'est possible que si l'on sait quelle est l'instruction suivante : le **branch prediction**. Néanmoins, si la prédiction n'est pas bonne, le coup de l'exécution est très élevé. Par conséquent, le meilleur moyen d'optimiser des branchements conditionnels est de les supprimer. La version .NET 8 a été optimisé dans ce sens est permet de supprimer les branchements conditionnels de manière plus efficace.
+
+En outre la version .NET 8 du framework permet d'utiliser des instructions de _move_ conditionnel tels que `cmov` et `csel` (pour les processeurs X86/64 et ARM). Ces instructions permettent de combiner l'évaluation d'une condition et l'assignation d'une valeur à une variable en une fois. De cette manière l'instruction suivante est toujours connue et le _branch prediction_ n'est plus utile.
 
 ## Nouveautés
 
