@@ -9,6 +9,7 @@ Cette documentation participative regroupe les informations récolter au sujet d
 
 ## Work in progress
 
+- [Nuget Signed Package](https://learn.microsoft.com/en-us/dotnet/core/tools/nuget-signed-package-verification#linux)
 - Security
     - [Trust the ASP.NET Core HTTPS development certificate on Windows and macOS](https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&tabs=visual-studio%2Clinux-ubuntu#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)
 - Breaking Change
