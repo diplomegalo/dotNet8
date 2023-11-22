@@ -4,8 +4,13 @@ La fin du support de .NET 6 est prévue pour le [12 novembre 2024](https://dotne
 
 Cette documentation participative regroupe les informations récolter au sujet de .NET 8 et des problématiques de migrations.
 
-- **[Breaking Change](./breaking-change/breaking-change.md)** : la liste non exhaustive des breaking changes .NET 7 et .NET 8 avec une idée des implications éventuelles.
-- **[Performance](./performance/performance.md)** : la présentation des points d'améliorations des performances.
+## Performance
+
+- **[Amélioration des performances en .NET 8](./performance/performance-net8.md)** : la présentation des points d'améliorations des performances sur base du blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
+
+## Breaking Change
+
+- **[Breaking Change](./breaking-change/breaking-change.md)** : la liste non exhaustive des breaking changes .NET 7 et .NET 8 avec une idée des implications éventuelles sur base de la documentation officielle Microsoft.
 
 ## Work in progress
 

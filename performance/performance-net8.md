@@ -1,6 +1,6 @@
-# Performances
+# Amélioration des performances en .NET 8
 
-Pour m'aider à rédiger ce chapitre j'ai été cherché quelques infos dans les vidéos de la Conf .NET 2023 mais également dans les blogs [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/) et [Performance Improvements in ASP.NET Core 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-aspnet-core-8/).
+Cette page est un condensé de ce que l'on peut retrouver sur dans le blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
 
 >:spiral_notepad: Chacune des sources sont très dense et demande une certaine compréhension de concepts annexes. L'objectif de cette documentation est de simplifier les concepts pour les rendre accessibles et permettre une compréhension rapide des améliorations de performances de .NET 8. Par conséquent, certains chapitres et concepts seront survolés, voire ignorés (cf. [Non couvert](#non-couvert)).
 
@@ -36,6 +36,15 @@ Les améliorations de performances liées au branching sont liées à l'optimisa
 
 En outre la version .NET 8 du framework permet d'utiliser des instructions de _move_ conditionnel tels que `cmov` et `csel` (pour les processeurs X86/64 et ARM). Ces instructions permettent de combiner l'évaluation d'une condition et l'assignation d'une valeur à une variable en une fois. De cette manière l'instruction suivante est toujours connue et le _branch prediction_ n'est plus utile.
 
+### Non couvert
+
+Ci-dessous la liste des sous chapitres non couverts.
+
+- La [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization), car ce sujet est très spécifique au besoin de communiquer avec des processeurs vectoriels, ce qui sort du cadre de mes compétences et des demandes que je reçois dans mon travail.
+
+>:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
+
+
 ## Nouveautés
 
 Les nouveautés sont des améliorations qui ne sont pas appliquées par défaut, mais qui peuvent être implémentées par un développeur.
@@ -59,11 +68,3 @@ int pos = source.IndexOfAny(s_values);
 ```
 
 >:spiral_notepad: Cet exemple est tiré d'une démo faite durant la [.NET Conf 2023](https://www.youtube.com/live/xEFO1sQ2bUc?si=sf9n8_-bpWpptoFq)
-
-## Non couvert
-
-Ci-dessous la liste des sujets non couverts.
-
-- La [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization), car ce sujet est très spécifique au besoin de communiquer avec des processeurs vectoriels, ce qui sort du cadre de mes compétences et des demandes que je reçois dans mon travail.
-
->:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
