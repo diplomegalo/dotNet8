@@ -6,6 +6,8 @@ Cette documentation participative regroupe les informations récolter au sujet d
 
 ## Performance
 
+Les performances en .NET 8 ont été considérablement améliorées. Les chiffres des benchmark communiqués dans les présentations de la .NET Conf font état d'une diminution de 15% par rapport à la dernière version. 
+
 - **[Amélioration des performances en .NET 8](./performance/performance-net8.md)** : la présentation des points d'améliorations des performances sur base du blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
 
 ## Breaking Change
