@@ -38,7 +38,9 @@ En outre la version .NET 8 du framework permet d'utiliser des instructions de _m
 
 ### Bounds Checking
 
-Le [Bounds Checking](devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking) décrit l'amélioration apporté à .NET 8 concernant la vérification des limites (borne supérieur) d'un Array, d'une string ou d'un Span. En quelque mots, dans des cas bien particuliers,.NET 8 est en mesure de comprendre qu'il n'est pas nécessaire de faire cette vérification, car il est impossible de dépasser l'index maximal, comme par exemple avec l'instruction : `myArray[(uint)hashcode % myArray.Length]`,ayant pour résultat d'épargner du temps de traitement. Dans la vidéo [Hardware Intrinsic in .NET 8](https://youtu.be/mSBsWBKh1-k?si=tuAAeF-aORvMT2ik), l'orateur présente une série de benchmark dont certains montrent la perte de performance dûe à cette étape de _bound checking_.
+Le [Bounds Checking](devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking) décrit l'amélioration apporté à .NET 8 concernant la vérification des limites (borne supérieur) d'un Array, d'une string ou d'un Span. En quelques mots, dans des cas bien particuliers,.NET 8 est en mesure de comprendre qu'il n'est pas nécessaire de faire cette vérification, car il est impossible de dépasser l'index maximal, comme par exemple avec l'instruction : `myArray[(uint)hashcode % myArray.Length]` qui limite la valeur de l'index à la taille du tableau. Le bypass de cette verification permet par conséquent d'épargner du temps de traitement. 
+
+Dans la vidéo [Hardware Intrinsic in .NET 8](https://youtu.be/mSBsWBKh1-k?si=tuAAeF-aORvMT2ik), l'orateur présente une série de benchmark dont certains montrent la perte de performance dûe à cette étape de _bound checking_.
 
 ### Non couvert
 
