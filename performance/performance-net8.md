@@ -1,6 +1,6 @@
 # Amélioration des performances en .NET 8
 
-Cette page est un condensé de ce que l'on peut retrouver dans le blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
+Cette page est un condensé de la page du blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
 
 >:spiral_notepad: les informations contenue dans cette pages de blog sont très denses et demande une certaine compréhension de concepts annexes. L'objectif de cette documentation est de simplifier les concepts pour les rendre accessibles et permettre une compréhension rapide des améliorations de performances de .NET 8. Par conséquent, certains chapitres et concepts seront survolés, voire ignorés (cf. [Non couvert](#non-couvert)).
 
@@ -36,11 +36,16 @@ Les améliorations de performances liées au branching sont liées à l'optimisa
 
 En outre la version .NET 8 du framework permet d'utiliser des instructions de _move_ conditionnel tels que `cmov` et `csel` (pour les processeurs X86/64 et ARM). Ces instructions permettent de combiner l'évaluation d'une condition et l'assignation d'une valeur à une variable en une fois. De cette manière l'instruction suivante est toujours connue et le _branch prediction_ n'est plus utile.
 
+### Bounds Checking
+
+Le [Bounds Checking](devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking) décrit l'amélioration apporté à .NET 8 concernant la vérification des limites (borne supérieur) d'un Array, d'une string ou d'un Span. En quelque mots, dans des cas bien particuliers,.NET 8 est en mesure de comprendre qu'il n'est pas nécessaire de faire cette vérification, car il est impossible de dépasser l'index maximal, comme par exemple avec l'instruction : `myArray[(uint)hashcode % myArray.Length]`,ayant pour résultat d'épargner du temps de traitement. Dans la vidéo [Hardware Intrinsic in .NET 8](https://youtu.be/mSBsWBKh1-k?si=tuAAeF-aORvMT2ik), l'orateur présente une série de benchmark dont certains montrent la perte de performance dûe à cette étape de _bound checking_.
+
 ### Non couvert
 
 Ci-dessous la liste des sous chapitres non couverts.
 
 - La [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization), car ce sujet est très spécifique au besoin de communiquer avec des processeurs vectoriels, ce qui sort du cadre de mes compétences et des demandes que je reçois dans mon travail.
+ 
 
 >:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
 
