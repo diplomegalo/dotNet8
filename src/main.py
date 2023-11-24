@@ -9,7 +9,7 @@ files = list_case_files()
 tagsDict = {}
 knowledge_base_path_file = create_knowledge_base_file()
 for file in files:
-    page = frontmatter.load(path + file)
+    page = frontmatter.load(path + "case/" + file)
     url = "[" + page['title'] + "](" + path + file + ")"
     for tag in page['tags']:
         if tag in tagsDict:

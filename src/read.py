@@ -13,7 +13,7 @@ def list_case_files():
     return files
 
 def create_knowledge_base_file():
-    file_path = "../knowledge-base/knowledge-base.md"
+    file_path = os.getcwd() + "/knowledge-base/knowledge-base.md"
     
     # Check if the file already exists
     if os.path.exists(file_path):
