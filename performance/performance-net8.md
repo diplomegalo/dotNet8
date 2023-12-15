@@ -4,9 +4,9 @@ Cette page est un condensé de la page du blog [Performance Improvements in .NET
 
 >:spiral_notepad: les informations contenue dans cette page de blog sont très denses et demande une certaine compréhension de concepts annexes. L'objectif de cette documentation est de simplifier les concepts pour les rendre accessibles et permettre une compréhension rapide des améliorations de performances de .NET 8. Par conséquent, certains chapitres et concepts seront survolés, voire ignorés (cf. [Non couvert](#non-couvert)).
 
-## Améliorations natives
+## Compilateur JIT
 
-Les améliorations natives sont inhérentes à la migration de code en .NET 8, autrement dit ces améliorations seront mises en place sans intervention de votre part.
+Le compilateur JIT (Just-In-Time) va compiler le code C# en code machine. Le compilateur JIT est utilisé par le CLR (Common Language Runtime) pour exécuter le code C#.
 
 ### Dynamic PGO
 
@@ -98,11 +98,14 @@ Ci-dessous la liste des sous chapitres non couverts.
 
 >:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
 
-## Nouveautés
+## Déploiement _Native AOT_
 
-Les nouveautés sont des améliorations qui ne sont pas appliquées par défaut, mais qui peuvent être implémentées par un développeur.
+.NET 8 supporte maintenant dans les applications ASP.NET Core. En terme de performances, les efforts ont été concentrés sur : 
 
-### SearchValues
+- La taille de l'application : la taille d'une application _Native AOT_ a été nettement amélioré depuis .NET 7, passant de ~13Mb à ~1.5Mb pour une simple application _Hello World_.
+- La compilation des applications _Native AOT_ : la compilation des applications _Native AOT_ a été amélioré et est maintenant largement plus rapide que dans .NET 7.
+
+## SearchValues
 
 Une nouveauté de .NET 8 est la possibilité de rechercher des valeurs dans des tableaux de manière plus efficace avec le type [`SearchValues<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.buffers.searchvalues-1?view=net-8.0&viewFallbackFrom=dotnet-aspire-8.0).
 
