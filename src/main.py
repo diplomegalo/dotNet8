@@ -1,5 +1,5 @@
 from os import path
-from read import create_knowledge_base_file, get_case_path_files, print_row_in_file, print_title_in_file
+from read import create_knowledge_base_file, get_case_path_files, print_row_in_file, print_title_in_file, print_line_in_file
 import frontmatter
 
 # Create the knowledge base file and get the path;
@@ -30,8 +30,12 @@ for case_path_file in cases_path_file:
         else:
             tagsDict[tag] = [{"url": url, "description": description}]
 
-# Sort the tagsDict based on key value;
+# Sort the tagsDict based on key
 tagsDict = dict(sorted(tagsDict.items()))
+
+for tag in tagsDict:
+    print_line_in_file(knowledge_base_path_file, tag)
+
 
 for tag in tagsDict:
     print_title_in_file(knowledge_base_path_file, tag + "\n")

@@ -22,9 +22,16 @@ def create_knowledge_base_file(path="/knowledge-base/knowledge-base.md"):
         
     # Create an empty file
     with open(file_path, 'w') as file:
-        file.write("# Knowledge Base\n")
+        file.write("# Knowledge Base\n\n")
     file.close()
     return file_path
+
+import urllib.parse
+
+def print_line_in_file(file_path, tag):
+    encoded_tag = urllib.parse.quote(tag)
+    with open(file_path, 'a') as file:
+        file.write(f"- [{tag}](#{encoded_tag})\n")
 
 def print_title_in_file(file_path, text):
     with open(file_path, 'a') as file:
