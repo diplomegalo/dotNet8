@@ -30,6 +30,9 @@ for case_path_file in cases_path_file:
         else:
             tagsDict[tag] = [{"url": url, "description": description}]
 
+# Sort the tagsDict based on key value;
+tagsDict = dict(sorted(tagsDict.items()))
+
 for tag in tagsDict:
     print_title_in_file(knowledge_base_path_file, tag + "\n")
     for item in tagsDict[tag]:
