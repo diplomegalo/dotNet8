@@ -28,18 +28,7 @@ Les performances en .NET 8 ont été considérablement améliorées. Les chiffre
 
 | Titre                                   | Niveau | Traité |
 |-----------------------------------------|--------|--------|
-| [Benchmarking Setup](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#benchmarking-setup)                      | 1      | :heavy_check_mark:    |
-| [JIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#jit)                                     | 1      | :construction:    |
-|   - [Tiering and Dynamic PGO](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#tiering-and-dynamic-pgo)             | 2      | :heavy_check_mark:     |
-|   - [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization)                       | 2      | :heavy_check_mark:     |
-|   - [Branching](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#branching)                         | 2      | :construction:    |
-|   - [Bounds Checking](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking)                   | 2      | ❌    |
-|   - [Constant Folding](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#constant-folding)                 | 2      | ❌    |
-|   - [Non-GC Heap](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#non-gc-heap)                       | 2      | ❌    |
-|   - [Zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#zeroing)                           | 2      | ❌    |
-|   - [Value Types](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#value-types)                      | 2      | ❌    |
-|   - [Casting](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#casting)                          | 2      | ❌    |
-|   - [Peephole Optimizations](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#peephole-optimizations)           | 2      | ❌    |
+| [JIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#jit)                                     | 1      | :heavy_check_mark:    |
 | [Native AOT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#native-aot)                              | 1      | ❌    |
 | [VM](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vm)                                      | 1      | ❌    |
 | [GC](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#gc)                                      | 1      | ❌    |
