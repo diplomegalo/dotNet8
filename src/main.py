@@ -23,7 +23,6 @@ for case_path_file in cases_path_file:
     
     # Get the tags;
     tags = page['tags']
-    tags = tags.split(',')
 
     for tag in tags:
         if tag in tagsDict:

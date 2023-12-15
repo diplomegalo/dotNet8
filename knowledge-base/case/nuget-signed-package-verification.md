@@ -1,7 +1,7 @@
 ---
 title: NuGet signed-package verification
 description: dotnet restore prend beaucoup de temps à s'exécuter sur un serveur ubuntu 22.04.
-tags: dotnet cli, nuget, restore, CLR, signed-package, ubuntu
+tags: [dotnet cli, nuget, restore, CLR, signed-package, ubuntu]
 ---
 # NuGet signed-package verification
 
