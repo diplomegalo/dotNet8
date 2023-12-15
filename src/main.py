@@ -1,24 +1,38 @@
 from os import path
-from read import create_knowledge_base_file, list_case_files, print_link_in_file, print_title_in_file
+from read import create_knowledge_base_file, get_case_path_files, print_row_in_file, print_title_in_file
 import frontmatter
 
-path = "knowledge-base/"
-filename = "knowledge-base.md"
-
-files = list_case_files()
-tagsDict = {}
+# Create the knowledge base file and get the path;
 knowledge_base_path_file = create_knowledge_base_file()
-for file in files:
-    page = frontmatter.load(path + "case/" + file)
-    url = "[" + page['title'] + "](" + path + file + ")"
-    for tag in page['tags']:
+
+# Get the list of files in the case directory;
+cases_path_file = get_case_path_files()
+
+# Init the tags dictionary;
+tagsDict = {}
+
+# For each file in the case directory;
+for case_path_file in cases_path_file:
+    
+    # Get markdown page;
+    page = frontmatter.load(case_path_file)
+
+    # Build the url;
+    url = "[" + page['title'] + "](" + case_path_file + ")"
+    description = page['description']
+    
+    # Get the tags;
+    tags = page['tags']
+    tags = tags.split(',')
+
+    for tag in tags:
         if tag in tagsDict:
-            tagsDict[tag].append(url)
+            tagsDict[tag].append({"url": url, "description": description})
         else:
-            tagsDict[tag] = [url]
+            tagsDict[tag] = [{"url": url, "description": description}]
 
 for tag in tagsDict:
     print_title_in_file(knowledge_base_path_file, tag + "\n")
-    for url in tagsDict[tag]:
-        print_link_in_file(knowledge_base_path_file, "- " + url)
+    for item in tagsDict[tag]:
+        print_row_in_file(knowledge_base_path_file, item)
 

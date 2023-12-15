@@ -1,19 +1,19 @@
 import os
 
-def list_case_files():
+def get_case_path_files(path="/knowledge-base/case/"):
     files = []
-    directory = os.getcwd() + "/knowledge-base/case/"
-    for filename in os.listdir(directory):
-        filepath = os.path.join(directory, filename)
+    path = os.getcwd() + path
+    for filename in os.listdir(path):
+        filepath = os.path.join(path, filename)
         if os.path.isfile(filepath):
-            files.append(filename)
+            files.append(path + filename)
     if len(files) == 0:
-        print("No files found in " + directory)
+        print("No files found in " + path)
         exit(1)
     return files
 
-def create_knowledge_base_file():
-    file_path = os.getcwd() + "/knowledge-base/knowledge-base.md"
+def create_knowledge_base_file(path="/knowledge-base/knowledge-base.md"):
+    file_path = os.getcwd() + path
     
     # Check if the file already exists
     if os.path.exists(file_path):
@@ -24,12 +24,14 @@ def create_knowledge_base_file():
     with open(file_path, 'w') as file:
         file.write("# Knowledge Base\n")
     file.close()
-    return file_path;
+    return file_path
 
 def print_title_in_file(file_path, text):
     with open(file_path, 'a') as file:
         file.write("\n## " + text + "\n")
+        file.write("| Titre | Description |\n")
+        file.write("|--|--|\n")
 
-def print_link_in_file(file_path, text):
+def print_row_in_file(file_path, row):
     with open(file_path, 'a') as file:
-        file.write(text + "\n")
+        file.write("| " + row['url'] + " | " + row['description'] + " |\n")
