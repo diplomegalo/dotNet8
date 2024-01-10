@@ -19,6 +19,8 @@ Depuis la version 8.0 le restore des packages NuGet vérifie le CLR des packages
 
 ## Solution
 
+> La solution n'a pas encore été trouvée. Intuitivement, il faudrait permettre aux serveurs de scalset d'accéder aux serveurs de vérification, mais malheureusement ces serveurs ne sont pas connu.
+
 ### Alternative : Set de variables d'environnement
 
-Il est possible de désactiver la vérification des packages signés en settant la variable `DOTNET_NUGET_SIGNATURE_VERIFICATION` à `false`
+Il est possible de désactiver la vérification des packages signés en settant la variable `DOTNET_NUGET_SIGNATURE_VERIFICATION` à `false`. Attention néanmoins qu'avec cette solution vous bypassez le system de vérification des packages. Ceci ouvre donc un problème potentiel de sécurité.
