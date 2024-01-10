@@ -4,8 +4,15 @@ La fin du support de .NET 6 est prévue pour le [12 novembre 2024](https://dotne
 
 Cette documentation participative regroupe les informations récolter au sujet de .NET 8 et des problématiques de migrations.
 
-- **[Breaking Change](./breaking-change/breaking-change.md)** : la liste non exhaustive des breaking changes .NET 7 et .NET 8 avec une idée des implications éventuelles.
-- **[Performance](./performance/performance.md)** : la présentation des points d'améliorations des performances.
+## Performance
+
+Les performances en .NET 8 ont été considérablement améliorées. Les chiffres des benchmark communiqués dans les présentations de la .NET Conf font état d'une diminution des temps d'execution de près de 15%. 
+
+- **[Amélioration des performances en .NET 8](./performance/performance-net8.md)** : la présentation des points d'améliorations des performances sur base du blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
+
+## Breaking Change
+
+- **[Breaking Change](./breaking-change/breaking-change.md)** : la liste non exhaustive des breaking changes .NET 7 et .NET 8 avec une idée des implications éventuelles sur base de la documentation officielle Microsoft.
 
 ## Work in progress
 
@@ -21,18 +28,7 @@ Cette documentation participative regroupe les informations récolter au sujet d
 
 | Titre                                   | Niveau | Traité |
 |-----------------------------------------|--------|--------|
-| [Benchmarking Setup](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#benchmarking-setup)                      | 1      | :heavy_check_mark:    |
-| [JIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#jit)                                     | 1      | :construction:    |
-|   - [Tiering and Dynamic PGO](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#tiering-and-dynamic-pgo)             | 2      | :heavy_check_mark:     |
-|   - [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization)                       | 2      | :heavy_check_mark:     |
-|   - [Branching](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#branching)                         | 2      | :construction:    |
-|   - [Bounds Checking](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking)                   | 2      | ❌    |
-|   - [Constant Folding](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#constant-folding)                 | 2      | ❌    |
-|   - [Non-GC Heap](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#non-gc-heap)                       | 2      | ❌    |
-|   - [Zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#zeroing)                           | 2      | ❌    |
-|   - [Value Types](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#value-types)                      | 2      | ❌    |
-|   - [Casting](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#casting)                          | 2      | ❌    |
-|   - [Peephole Optimizations](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#peephole-optimizations)           | 2      | ❌    |
+| [JIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#jit)                                     | 1      | :heavy_check_mark:    |
 | [Native AOT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#native-aot)                              | 1      | ❌    |
 | [VM](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vm)                                      | 1      | ❌    |
 | [GC](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#gc)                                      | 1      | ❌    |
