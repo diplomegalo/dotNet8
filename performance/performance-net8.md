@@ -60,7 +60,7 @@ Le JIT est capable de déterminer si une valeur est destinée à être enregistr
 
 ### Zeroing
 
-Le [Zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#zeroing) est une technique d'optimisation qui permet de réduire le temps que met le JIT pour faire un clean de l'espace mémoire qu'il utilise après une allocation. Auparavant la méthode consisté à boucler sur l'espace mémoire en séquence pour y inscrire des zéros. Actuellement, .NET 8 va vectoriser cette opération et après un certain seuil va utiliser des instructions de type `memset` qui améliorera drastiquement le temps de nettoyage de l'espace mémoire.
+Le [Zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#zeroing) est une technique d'optimisation qui permet de réduire le temps que met le JIT pour faire un clean de l'espace mémoire qu'il utilise après une allocation. Auparavant la méthode consistait à boucler sur l'espace mémoire en séquence pour y inscrire des zéros. Actuellement, .NET 8 va vectoriser cette opération et après un certain seuil va utiliser des instructions de type `memset` qui améliorera drastiquement le temps de nettoyage de l'espace mémoire.
 
 ### Value Type
 
