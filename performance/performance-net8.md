@@ -1,12 +1,12 @@
-# Performances
+# Amélioration des performances en .NET 8
 
-Pour m'aider à rédiger ce chapitre j'ai été cherché quelques infos dans les vidéos de la Conf .NET 2023 mais également dans les blogs [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/) et [Performance Improvements in ASP.NET Core 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-aspnet-core-8/).
+Cette page est un condensé de la page du blog [Performance Improvements in .NET 8](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/).
 
->:spiral_notepad: Chacune des sources sont très dense et demande une certaine compréhension de concepts annexes. L'objectif de cette documentation est de simplifier les concepts pour les rendre accessibles et permettre une compréhension rapide des améliorations de performances de .NET 8. Par conséquent, certains chapitres et concepts seront survolés, voire ignorés (cf. [Non couvert](#non-couvert)).
+>:spiral_notepad: les informations contenue dans cette page de blog sont très denses et demande une certaine compréhension de concepts annexes. L'objectif de cette documentation est de simplifier les concepts pour les rendre accessibles et permettre une compréhension rapide des améliorations de performances de .NET 8. Par conséquent, certains chapitres et concepts seront survolés, voire ignorés (cf. [Non couvert](#non-couvert)).
 
-## Améliorations natives
+## Compilateur JIT
 
-Les améliorations natives sont inhérentes à la migration de code en .NET 8, autrement dit ces améliorations seront mises en place sans intervention de votre part.
+Le compilateur JIT (Just-In-Time) va compiler le code C# en code machine. Le compilateur JIT est utilisé par le CLR (Common Language Runtime) pour exécuter le code C#.
 
 ### Dynamic PGO
 
@@ -36,11 +36,76 @@ Les améliorations de performances liées au branching sont liées à l'optimisa
 
 En outre la version .NET 8 du framework permet d'utiliser des instructions de _move_ conditionnel tels que `cmov` et `csel` (pour les processeurs X86/64 et ARM). Ces instructions permettent de combiner l'évaluation d'une condition et l'assignation d'une valeur à une variable en une fois. De cette manière l'instruction suivante est toujours connue et le _branch prediction_ n'est plus utile.
 
-## Nouveautés
+### Bounds Checking
 
-Les nouveautés sont des améliorations qui ne sont pas appliquées par défaut, mais qui peuvent être implémentées par un développeur.
+Le [Bounds Checking](devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#bounds-checking) décrit l'amélioration apporté à .NET 8 concernant la vérification des limites (borne supérieur) d'un Array, d'une string ou d'un Span. En quelques mots, dans des cas bien particuliers,.NET 8 est en mesure de comprendre qu'il n'est pas nécessaire de faire cette vérification, car il est impossible de dépasser l'index maximal, comme par exemple avec l'instruction : `myArray[(uint)hashcode % myArray.Length]` qui limite la valeur de l'index à la taille du tableau. Le bypass de cette verification permet par conséquent d'épargner du temps de traitement.
 
-### SearchValues
+Dans la vidéo [Hardware Intrinsic in .NET 8](https://youtu.be/mSBsWBKh1-k?si=tuAAeF-aORvMT2ik), l'orateur présente une série de benchmark dont certains montrent la perte de performance dûe à cette étape de _bound checking_.
+
+### Constant Folding
+
+Le [Constant Folding](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#constant-folding) est une technique d'optimisation qui permet de calculer une expression constante à la compilation. Par exemple, l'expression `1 + 2` peut être calculée à la compilation et remplacée par `3`. Cette technique permet d'épargner du temps de calcul à l'exécution du programme. Par effet de bord, cette technique permet de réduire drastiquement la taille du code généré par le compilateur. Par exemple dans le cas d'un swith/case, ou la valeur passé en paramètre est une constante, le compilateur peut remplacer le switch/case par un simple `goto` vers la bonne instruction. Beaucoup d'autre cas ont été optimisés dans ce sens.
+
+### Non-GC Heap Allocation
+
+Le [Non-GC Heap Allocation](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#non-gc-heap-allocation) est une technique d'optimisation qui permet d'éviter l'allocation de mémoire sur le _heap_ (tas) géré par le GC (Garbage Collector). En effet, le GC est un mécanisme qui permet de gérer la mémoire de manière automatique. Le _heap_ est une zone mémoire qui est gérée par le GC destiné à enregistrer les objets de type _Reference_ (à l'inverse des _Value Type_).
+
+L'objectif du _Non-GC Heap_ est d'avoir une zone mémoire qui n'est pas sous le contrôle du GC de manière à ne pas devoir adresser les objets à chaque fois que l'on veut y accéder par exemple. Dans un cadre normal, la ligne de code suivante : `public string GetPrefix() => "https://";` aurait pour conséquence une enregistrement sur le heap. Ensuite le GC viendra libérer la mémoire. Dans le cas du _Non-GC Heap_ la valeur sera enregistrée dans une zone mémoire qui n'est pas gérée par le GC et qui ne sera pas libérée.
+
+Le JIT est capable de déterminer si une valeur est destinée à être enregistrée sur le _Non-GC Heap_ ou non. Par conséquent, JIT peut récupérer la valeur directement sur le _Non-GC Heap_ sans passer par le GC.
+
+> :information_source: Exception des `static` _value type_
+>
+> Normalement les _value type_ ne sont pas enregistré sur le _heap_. Néanmoins, il existe une exception pour les `static` _value type_ sont enregistrés. Par conséquent, ceux-ci peuvent être enregistrés sur le _Non-GC Heap_.
+
+### Zeroing
+
+Le [Zeroing](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#zeroing) est une technique d'optimisation qui permet de réduire le temps que met le JIT pour faire un clean de l'espace mémoire qu'il utilise après une allocation. Auparavant la méthode consisté à boucler sur l'espace mémoire en séquence pour y inscrire des zéros. Actuellement, .NET 8 va vectoriser cette opération et après un certain seuil va utiliser des instructions de type `memset` qui améliorera drastiquement le temps de nettoyage de l'espace mémoire.
+
+### Value Type
+
+Les [Value Type](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#value-type) sont souvent utiliser dans le cadre de programmation haute performance. Pourquoi ? Car les _Value Type_ sont enregistrés sur la pile et non sur le _heap_. Par conséquent, ils sont plus rapide à accéder et à manipuler et diminue la gestion nécessaire par le GC. Néanmoins, ils ont le désavantage d'être copié notamment lorsqu'ils sont passé en paramètre d'une méthode.
+
+Un des aspect de l'amélioration de performance dans ce contexte est la "promotion". La promotion est le fait de pouvoir diviser un _Value Type_ en fonction de champs qui le compose (voir l'exemple ci-dessous) : 
+
+```csharp
+internal struct ParsedStat
+{
+    internal int pid;
+    internal string comm;
+    internal char state;
+    internal int ppid;
+    internal int session;
+    internal ulong utime;
+    internal ulong stime;
+    internal long nice;
+    internal ulong starttime;
+    internal ulong vsize;
+    internal long rss;
+    internal ulong rsslim;
+}
+```
+
+Cette technique permet de ne pas devoir gérer tout le _Value Type_, mais uniquement les champs qui sont utilisés et donc améliore les performances de traitement. En outre, cette technique permet de ne copier que les champs qui sont utilisés.
+
+### Non couvert
+
+Ci-dessous la liste des sous chapitres non couverts.
+
+- La [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization), car ce sujet est très spécifique au besoin de communiquer avec des processeurs vectoriels, ce qui sort du cadre de mes compétences et des demandes que je reçois dans mon travail.
+
+- Le [Casting](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#casting), car l'explication est beaucoup trop technique pour être vulgarisée.
+
+>:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
+
+## Déploiement _Native AOT_
+
+.NET 8 supporte maintenant dans les applications ASP.NET Core. En terme de performances, les efforts ont été concentrés sur : 
+
+- La taille de l'application : la taille d'une application _Native AOT_ a été nettement amélioré depuis .NET 7, passant de ~13Mb à ~1.5Mb pour une simple application _Hello World_.
+- La compilation des applications _Native AOT_ : la compilation des applications _Native AOT_ a été amélioré et est maintenant largement plus rapide que dans .NET 7.
+
+## SearchValues
 
 Une nouveauté de .NET 8 est la possibilité de rechercher des valeurs dans des tableaux de manière plus efficace avec le type [`SearchValues<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.buffers.searchvalues-1?view=net-8.0&viewFallbackFrom=dotnet-aspire-8.0).
 
@@ -59,11 +124,3 @@ int pos = source.IndexOfAny(s_values);
 ```
 
 >:spiral_notepad: Cet exemple est tiré d'une démo faite durant la [.NET Conf 2023](https://www.youtube.com/live/xEFO1sQ2bUc?si=sf9n8_-bpWpptoFq)
-
-## Non couvert
-
-Ci-dessous la liste des sujets non couverts.
-
-- La [Vectorization](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-8/#vectorization), car ce sujet est très spécifique au besoin de communiquer avec des processeurs vectoriels, ce qui sort du cadre de mes compétences et des demandes que je reçois dans mon travail.
-
->:spiral_notepad: Toutes personnes désireuses de compléter cette documentation en prenant un des sujets non couverts est la bienvenue. :wink:
