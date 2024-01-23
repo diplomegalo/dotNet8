@@ -1,0 +1,47 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mssql
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: mssql # has to match .spec.template.metadata.labels
+  serviceName: "mssql"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: mssql # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mssql
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          ports:
+            - containerPort: 1433
+              name: tcpsql
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_ENABLE_HADR
+              value: "1"
+            - name: MSSQL_SA_PASSWORD
+              value:
+          volumeMounts:
+            - name: www
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: www
+      spec:
+        storageClassName: my-storage-class
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+---
+
+
